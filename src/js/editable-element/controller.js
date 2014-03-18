@@ -188,11 +188,17 @@ angular.module('xeditable').factory('editableController',
 
       //build buttons
       if(self.buttons !== 'no') {
-        self.buttonsEl = angular.element(theme.buttonsTpl);
+        if(theme.buttonsTpl !== '') {
+          self.buttonsEl = angular.element(theme.buttonsTpl);
+        }
         self.submitEl = angular.element(theme.submitTpl);
         self.cancelEl = angular.element(theme.cancelTpl);
-        self.buttonsEl.append(self.submitEl).append(self.cancelEl);
-        self.controlsEl.append(self.buttonsEl);
+        if(self.buttonsEl !== undefined) {
+          self.buttonsEl.append(self.submitEl).append(self.cancelEl);
+          self.controlsEl.append(self.buttonsEl);
+        } else {
+          self.controlsEl.append(self.submitEl).append(self.cancelEl);
+        }
         
         self.inputEl.addClass('editable-has-buttons');
       }
